@@ -1,0 +1,27 @@
+<div id="wrapper">
+    {{!-- Deals --}}
+    <div id='deals'>
+        <h3>Deals:</h3>
+        <ul id="deal-list" class="list-group">
+            {{#each deal}}
+                <li data-id="{{_id}}" class="deal-item list-group-item list-group-item-action">
+                    <script type="text/x-handlebars-template"></script>
+                        <img class="image" src="{{imageURL}}">
+                        <h5 class="title">Title: {{title}}</h5>
+                        <a class="btn btn-primary" href="{{link}}" role="button">Link</a>
+                    </script>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+
+    {{!-- Notes --}}
+    <div id="notes">
+    </div>
+</div>
+
+
+
+<script>
+
+</script>
