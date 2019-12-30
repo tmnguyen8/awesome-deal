@@ -24,7 +24,7 @@ app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongodb-hw";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/awesome-deal";
 
 // connect to MongoDB
 mongoose.connect(MONGODB_URI);

@@ -42,7 +42,7 @@ module.exports = function(app) {
 
             // Send response to the client
             res.json(scrapeDB)
-            console.log(scrapeDB)
+            // console.log(scrapeDB)
         });
     });
 }
