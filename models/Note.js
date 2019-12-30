@@ -3,10 +3,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const NoteSchema = new Schema({
-    title: String,
-    body: String
+    title: {
+        type: String,
+        required: false
+    },
+    body: {
+        type: String,
+        required: false
+    }
 })
 
-const Note = mongoose.model('Note', NoteSchema);
+var Note = mongoose.model('Note', NoteSchema);
 
 module.exports = Note;

@@ -12,7 +12,7 @@ const API = {
         return $.ajax({
             url: "api/deals/" + dealID,
             method: "POST",
-            data: JSON.stringify(note)
+            data: note
         })
     }
 }
@@ -53,7 +53,6 @@ $(document).on('click', '#savenote', function(){
     // console.log(note)
     // Post the change to note based on the form
     API.postNoteByID(thisID, note).then(function(data){
-        console.log(data);
         $('#notes').empty();
     });
 
