@@ -8,10 +8,19 @@ module.exports = function(app) {
     app.get("/api/deals", function(req,res){
         // find all deals then result the json deals
         db.Deal.find({}).then((dbDeal)=>{
-            res.json(dbDeal)
+            res.render('deals',dbDeal)
         }).catch((error)=>{
             res.json(error)
         })
+    })
+    // API route to post deal
+    app.post("/api/deals", function(req,res){
+        console.log(req.body)
+        db.Deal.create(req.body).then(function(dbDeal){
+            console.log("Added this deal: ",dbDeal)
+            }).catch(function(error){
+                console.log(error)
+            });
     })
 
     // API route to get deal by id
@@ -29,7 +38,7 @@ module.exports = function(app) {
     })
 
     // API route to post (saving/updating) a note associated with deal id
-    app.post('/api/deals/:id', function(req,res){
+    app.post('/api/notes/:id', function(req,res){
         console.log(req.body)
         db.Note.create(req.body)
             .then(function(dbNote) {

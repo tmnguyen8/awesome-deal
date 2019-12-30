@@ -15,31 +15,34 @@ module.exports = function(app) {
         axios.get("https://slickdeals.net/deals/").then(function(response) {
             // Then, we load that into cheerio and save it to $ for a shorthand selector
             var $ = cheerio.load(response.data);
-            
+            var scrapeDB = [];
             // Now, we grab every h2 within an article tag, and do the following:
-            $(".mainDealInfo").each(function(i, element) {
+            $(".dealRow").each(function(i, element) {
                 // Save an empty result object
-                var result = {};
-        
+                
+                var result = {}
                 // Add the text and href of every link, and save them as properties of the result object
-                result.title = $(this).children('a').children('img').attr('alt');
-                result.link = "https://slickdeals.net" + $(this).children('a').attr('href');
-                result.imageURL = $(this).children('a').children('img').attr('data-original');
+                result.title = $(this).children('.mainDealInfo').children('a').children('img').attr('alt');
+                result.link = "https://slickdeals.net" + $(this).children('.mainDealInfo').children('a').attr('href');
+                result.imageURL = $(this).children('.mainDealInfo').children('a').children('img').attr('data-original');
         
+                scrapeDB.push(result);
+
                 // Testing & Debugging the results
                 // console.log(result)
 
-                // create new deal using the result object from scapping and catch any errors
-                db.Deal.create(result).then(function(dbDeal){
-                    // console.log(dbDeal)
-                    console.log("data scaped has been saved")
-                }).catch(function(error){
-                    console.log(error)
-                })
+                // // create new deal using the result object from scapping and catch any errors
+                // db.Deal.create(result).then(function(dbDeal){
+                //     // console.log(dbDeal)
+                //     console.log("data scaped has been saved")
+                // }).catch(function(error){
+                //     console.log(error)
+                // })
             });
-        
-            // Send a message to the client
-            res.send('Scrape Complete');
+
+            // Send response to the client
+            res.json(scrapeDB)
+            console.log(scrapeDB)
         });
     });
 }

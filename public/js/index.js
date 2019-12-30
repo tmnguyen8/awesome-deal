@@ -1,62 +1,54 @@
-var $dealList = $('#deal-list');
-
 // API calls in the Client Side
 const API = {
-    getDealByID: function(dealID){
+    scrapeSite: function (){
         return $.ajax({
-            url: "api/deals/" + dealID,
+            url: "scrape/",
             method: "GET"
         })
     },
-    postNoteByID: function(dealID, note){
+    postDeal: function(deal){
         return $.ajax({
-            url: "api/deals/" + dealID,
+            url: "api/deals",
             method: "POST",
-            data: note
+            data: deal
         })
     }
 }
 
-$(document).on("click", "li", function(){
-    $('#notes').empty();
-    var thisID = $(this).data('id');
-    // Get deal by id then create a note
-    API.getDealByID(thisID).then(function(data){
+// Get Scrape Data
+$(document).on("click", "#scrape-submit", function(){
+    API.scrapeSite().then(function(data){
         // console.log(data)
-        // The title of the article
-        $("#notes").append("<h2>" + data.title + "</h2>");
-        // An input to enter a new title
-        $("#notes").append("<input id='titleinput' name='title' placeholder='Note Title'>");
-        // A textarea to add a new note body
-        $("#notes").append("<textarea id='bodyinput' name='body' placeholder='Note Body'></textarea>");
-        // A button to submit a new note, with the id of the article saved to it
-        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        data.forEach(deal=> {
+            if(!deal.imageURL){
+                deal.imageURL="https://i.pinimg.com/originals/5a/f5/49/5af549fb8335bf9a9f78f8572e16e9cf.jpg"
+            }
 
-        // If there's a note in the article
-        if (data.note) {
-        // Place the title of the note in the title input
-        $("#titleinput").val(data.note.title);
-        // Place the body of the note in the body textarea
-        $("#bodyinput").val(data.note.body);
-      }
+            $("#deal-list").append(`
+                <li class="deal-item list-group-item list-group-item-action">
+                    <script type="text/x-handlebars-template"></script>
+                        <img class="image" src="${deal.imageURL}">
+                        <h5 class="title">Title: ${deal.title}</h5>
+                        <a class="btn btn-primary" href="${deal.link}" role="button">Deal Link</a>
+                        <button class="btn btn-secondary" id="save-deal" data-title="${deal.title}" data-image-url="${deal.imageURL}" data-link="${deal.link}">Save Deal</button>
+                    </script>
+                </li>
+            `)
+            
+        });
     })
 })
-
-$(document).on('click', '#savenote', function(){
-    var thisID = $(this).data('id');
-    var note = {
+// Save deal to database
+$(document).on('click', '#save-deal', function(){
+    var deal = {
         // Value taken from title input
-        title: $("#titleinput").val(),
-        // Value taken from note textarea
-        body: $("#bodyinput").val()
+        title: $(this).data('title'),
+        link: $(this).data('link'),
+        imageURL: $(this).data('image-url')
     }
-    // console.log(note)
-    // Post the change to note based on the form
-    API.postNoteByID(thisID, note).then(function(data){
-        $('#notes').empty();
-    });
+    // Post the change to deal based on the form
+    API.postDeal(deal).then(function(){
 
-    // Also, remove the values entered in the input and textarea for note entry
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
+    });
 })
+
