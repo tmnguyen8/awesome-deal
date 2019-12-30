@@ -39,7 +39,7 @@ module.exports = function(app) {
 
     // API route to post (saving/updating) a note associated with deal id
     app.post('/api/notes/:id', function(req,res){
-        console.log(req.body)
+        // console.log(req.body)
         db.Note.create(req.body)
             .then(function(dbNote) {
                 // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
@@ -55,5 +55,16 @@ module.exports = function(app) {
             // If an error occurred, send it to the client
             res.json(err);
             });
+    })
+
+    // API route to delete deal
+    app.delete('/api/deals/:id', function(req,res){
+        db.Deal.deleteOne({ _id: req.params.id }).then(function(){
+            db.Deal.find({}).then((dbDeal)=>{
+                res.render('deals',dbDeal)
+            }).catch((error)=>{
+                res.json(error)
+            })
+        })
     })
 }

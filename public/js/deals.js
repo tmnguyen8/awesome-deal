@@ -17,6 +17,12 @@ const API = {
             method: "POST",
             data: note
         })
+    },
+    deleteDealByID: function(dealID){
+        return $.ajax({
+            url: "api/deals/" + dealID,
+            method: "DELETE"
+        })
     }
 }
 
@@ -70,4 +76,12 @@ $(document).on('click', '#save-note', function(){
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
+})
+
+// Listening to click of deleting deal from database
+$(document).on('click', '#delete-deal', function(){
+    var thisID = $(this).data('id');
+    API.deleteDealByID(thisID).then(function(){
+        location.reload();
+    })
 })
