@@ -19,8 +19,10 @@ const indexAPI = {
 // Get Scrape Data
 $(document).on("click", "#scrape-submit", function(event){
     event.preventDefault();
-
+    
     indexAPI.scrapeSite().then(function(data){
+        $('#index-img').hide();
+
         console.log(data)
         data.forEach(deal=> {
             if(!deal.imageURL){
