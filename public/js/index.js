@@ -1,5 +1,5 @@
 // API calls in the Client Side
-const API = {
+const indexAPI = {
     scrapeSite: function (){
         return $.ajax({
             url: "scrape/",
@@ -15,13 +15,16 @@ const API = {
     }
 }
 
+
 // Get Scrape Data
-$(document).on("click", "#scrape-submit", function(){
-    API.scrapeSite().then(function(data){
-        // console.log(data)
+$(document).on("click", "#scrape-submit", function(event){
+    event.preventDefault();
+
+    indexAPI.scrapeSite().then(function(data){
+        console.log(data)
         data.forEach(deal=> {
             if(!deal.imageURL){
-                deal.imageURL="https://i.pinimg.com/originals/5a/f5/49/5af549fb8335bf9a9f78f8572e16e9cf.jpg"
+                deal.imageURL="https://raw.githubusercontent.com/tmnguyen8/awesome-deal/master/public/images/sad.jpg"
             }
 
             $("#deal-list").append(`
@@ -34,7 +37,6 @@ $(document).on("click", "#scrape-submit", function(){
                     </script>
                 </li>
             `)
-            
         });
     })
 })
@@ -47,7 +49,7 @@ $(document).on('click', '#save-deal', function(){
         imageURL: $(this).data('image-url')
     }
     // Post the change to deal based on the form
-    API.postDeal(deal).then(function(){
+    indexAPI.postDeal(deal).then(function(){
 
     });
 })

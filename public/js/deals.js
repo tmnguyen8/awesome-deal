@@ -25,7 +25,7 @@ const API = {
         })
     }
 }
-
+$("#scrape-submit").hide();
 
 // **************************************************
 // EXECUTIONS
@@ -85,3 +85,4 @@ $(document).on('click', '#delete-deal', function(){
         location.reload();
     })
 })
+
