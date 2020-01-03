@@ -1,14 +1,16 @@
-body { background-color: #F2F6D0 }
-#wrapper {
-  width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 5%;
+body { 
+  background-color: rgb(228,228,228);
+}
+.navbar{
+  background: rgba(95, 94, 94, 0.5)
+}
+.container-fluid{
+  text-align: center;
 }
 #deals {
   display: inline-block;
   overflow: auto;
-  width: 60%;
+  /* width: 60%; */
   height: 700px;
 }
 #notes {

@@ -1,29 +1,10 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/deals.js"></script>
 
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="./">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link" href="./deals">Saved Deals</a>
-      </li>
-      <li class="nav-item">
-        <a id="scrape-submit" class="btn btn-primary" >Scrape Website</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
   
-<div id="wrapper">
+<div class='container-fluid'>
     {{!-- Deals --}}
-    <div id='deals'>
+    <div id='deals' class="col-8">
         <h3>Saved Deals:</h3>
         <ul id="deal-list" class="list-group">
             {{#each deal}}
@@ -41,6 +22,6 @@
     </div>
 
     {{!-- Notes --}}
-    <div id="notes">
+    <div id="notes" class="col-4">
     </div>
 </div>
