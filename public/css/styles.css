@@ -4,6 +4,12 @@ body {
 .navbar{
   background: rgba(95, 94, 94, 0.5)
 }
+
+.navbar img 
+{
+ max-width: 50px;
+ max-height: 50px;
+}
 .container-fluid{
   text-align: center;
 }
